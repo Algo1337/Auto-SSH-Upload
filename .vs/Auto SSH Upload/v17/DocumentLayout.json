@@ -32,9 +32,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{BF0B25ED-2763-4DDC-A26D-4FBA857CC7F8}|Auto SSH Upload\\Auto SSH Upload.csproj|C:\\Users\\traci\\source\\repos\\Auto SSH Upload\\auto ssh upload\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BF0B25ED-2763-4DDC-A26D-4FBA857CC7F8}|Auto SSH Upload\\Auto SSH Upload.csproj|solutionrelative:auto ssh upload\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BF0B25ED-2763-4DDC-A26D-4FBA857CC7F8}|Auto SSH Upload\\Auto SSH Upload.csproj|c:\\users\\traci\\source\\repos\\auto ssh upload\\auto ssh upload\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|5e9a8ac2-4f34-4521-858f-4c248ba31532"
     }
   ],
   "DocumentGroupContainers": [
@@ -60,8 +57,7 @@
               "RelativeToolTip": "Auto SSH Upload\\SSHLogin.cs",
               "ViewState": "AQIAACcAAAAAAAAAAAAYwDoAAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-28T10:50:04.79Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-28T10:50:04.79Z"
             },
             {
               "$type": "Document",
@@ -72,8 +68,7 @@
               "ToolTip": "C:\\Users\\traci\\source\\repos\\Auto SSH Upload\\Auto SSH Upload\\SSHLogin.cs [Design]",
               "RelativeToolTip": "Auto SSH Upload\\SSHLogin.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-28T10:38:01.471Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2024-07-28T10:38:01.471Z"
             },
             {
               "$type": "Document",
@@ -81,8 +76,8 @@
               "Title": "Form1.cs [Design]",
               "DocumentMoniker": "C:\\Users\\traci\\source\\repos\\Auto SSH Upload\\Auto SSH Upload\\Form1.cs",
               "RelativeDocumentMoniker": "Auto SSH Upload\\Form1.cs",
-              "ToolTip": "C:\\Users\\traci\\source\\repos\\Auto SSH Upload\\Auto SSH Upload\\Form1.cs [Design]",
-              "RelativeToolTip": "Auto SSH Upload\\Form1.cs [Design]",
+              "ToolTip": "C:\\Users\\traci\\source\\repos\\Auto SSH Upload\\Auto SSH Upload\\Form1.cs [Design]*",
+              "RelativeToolTip": "Auto SSH Upload\\Form1.cs [Design]*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-28T10:12:40.349Z",
               "EditorCaption": " [Design]"
@@ -96,8 +91,7 @@
               "ToolTip": "C:\\Users\\traci\\source\\repos\\Auto SSH Upload\\Auto SSH Upload\\Auto SSH Upload.csproj",
               "RelativeToolTip": "Auto SSH Upload\\Auto SSH Upload.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-07-28T15:21:34.779Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-28T15:21:34.779Z"
             },
             {
               "$type": "Document",
@@ -105,9 +99,9 @@
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\traci\\source\\repos\\Auto SSH Upload\\Auto SSH Upload\\Form1.cs",
               "RelativeDocumentMoniker": "Auto SSH Upload\\Form1.cs",
-              "ToolTip": "C:\\Users\\traci\\source\\repos\\Auto SSH Upload\\Auto SSH Upload\\Form1.cs",
-              "RelativeToolTip": "Auto SSH Upload\\Form1.cs",
-              "ViewState": "AQIAADQAAAAAAAAAAAAhwEgAAAApAAAA",
+              "ToolTip": "C:\\Users\\traci\\source\\repos\\Auto SSH Upload\\Auto SSH Upload\\Form1.cs*",
+              "RelativeToolTip": "Auto SSH Upload\\Form1.cs*",
+              "ViewState": "AQIAAEkAAAAAAAAAAAAhwEcAAABUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-28T10:15:01.643Z",
               "EditorCaption": ""
@@ -134,8 +128,7 @@
               "RelativeToolTip": "Auto SSH Upload\\App.config",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAB0AAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2024-07-28T14:02:22.647Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-28T14:02:22.647Z"
             },
             {
               "$type": "Document",
@@ -146,8 +139,7 @@
               "ToolTip": "C:\\Users\\traci\\source\\repos\\Auto SSH Upload\\Auto SSH Upload\\Properties\\Settings.settings",
               "RelativeToolTip": "Auto SSH Upload\\Properties\\Settings.settings",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002767|",
-              "WhenOpened": "2024-07-28T14:02:22.88Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-28T14:02:22.88Z"
             }
           ]
         }

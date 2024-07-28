@@ -70,17 +70,10 @@ namespace Auto_SSH_Upload
         {
             string file_name = listBox1.SelectedItem.ToString();
             richTextBox1.Text = File.ReadAllText(directory_path + "\\" + file_name);
-            if(file_name.EndsWith(".py"))
-                richTextBox1.TextChanged += (s, ev) => HighlightSyntax();
-
-            if(file_name.EndsWith(".c"))
-                richTextBox1.TextChanged += (s, ev) => C_HighlightSyntax();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            richTextBox1.TextChanged += (s, ev) => C_HighlightSyntax();
-            richTextBox1.TextChanged += (s, ev) => HighlightSyntax();
             SSHLogin login = new SSHLogin();
             login.ShowDialog();
 
@@ -102,8 +95,12 @@ namespace Auto_SSH_Upload
 
             File.WriteAllText($"{this.directory_path}\\{file_name}", richTextBox1.Text);
             Thread.Sleep(1000);
+            
+            if(textBox1.Text.EndsWith("/"))
+                this.client.UploadFile(File.OpenRead($"{this.directory_path}\\{file_name}"), textBox1.Text + file_name);
+            else
+                this.client.UploadFile(File.OpenRead($"{this.directory_path}\\{file_name}"), textBox1.Text + "/" + file_name);
 
-            this.client.UploadFile(File.OpenRead($"{this.directory_path}\\{file_name}"), textBox1.Text + file_name);
             MessageBox.Show("File uploaded to server!");
         }
 
