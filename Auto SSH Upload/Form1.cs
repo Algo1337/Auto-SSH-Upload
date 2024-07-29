@@ -26,16 +26,8 @@ namespace Auto_SSH_Upload
         public static int TogMove;
         public static int MValX;
         public static int MValY;
+        public char key = ' ';
 
-        private readonly string[] pythonKeywords =
-    {
-        "def", "return", "if", "else", "elif", "while", "for", "break", "continue",
-        "import", "from", "as", "try", "except", "finally", "class", "pass", "with", "yield"
-    };
-
-        private const string CommentPattern = @"#.*";
-        private const string StringPattern = @"""[^""\r\n]*""|'[^'\r\n]*'";
-        private const string KeywordPattern = @"\b(?:def|return|if|else|elif|while|for|break|continue|import|from|as|try|except|finally|class|pass|with|yield)\b";
         public Form1()
         {
             InitializeComponent();
@@ -53,32 +45,24 @@ namespace Auto_SSH_Upload
 
         private void label5_Click_1(object sender, EventArgs e)
         {
-            folderBrowserDialog1.ShowDialog();
-            directory_path = folderBrowserDialog1.SelectedPath;
-            label4.Text = $"Current Directory: {directory_path}";
-
-            string[] files = Directory.GetFiles(directory_path);
-            if (files.Length == 0)
-                return;
-
-            listBox1.Items.Clear();
-            foreach (string file in files)
-                listBox1.Items.Add(file.Replace(directory_path, "").Replace("\\", ""));
+            
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string file_name = listBox1.SelectedItem.ToString();
+            string file_name = Convert.ToString(dataGridView1.Rows[dataGridView1.SelectedCells[0].RowIndex].Cells["Filename"].Value);
             richTextBox1.Text = File.ReadAllText(directory_path + "\\" + file_name);
         }
 
+        
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.dataGridView1.DefaultCellStyle.Font = new Font("Ariel", 10);
+            richTextBox1.SelectionTabs = new int[] { 100, 200, 300, 400 };
             SSHLogin login = new SSHLogin();
             login.ShowDialog();
 
             this.client = login.c;
-            this.client.Connect();
             this.ip = login.ip;
             this.port = login.port;
 
@@ -88,20 +72,30 @@ namespace Auto_SSH_Upload
 
         private void richTextBox1_DoubleClick(object sender, EventArgs e)
         {
+            this.client.Connect();
             if (textBox1.Text == "Server_Path_To_File" || textBox1.Text.Trim() == "")
-                return; 
+                return;
 
-            string file_name = listBox1.SelectedItem.ToString();
+            string file_name = Convert.ToString(dataGridView1.Rows[dataGridView1.SelectedCells[0].RowIndex].Cells["Filename"].Value);
 
             File.WriteAllText($"{this.directory_path}\\{file_name}", richTextBox1.Text);
             Thread.Sleep(1000);
-            
-            if(textBox1.Text.EndsWith("/"))
-                this.client.UploadFile(File.OpenRead($"{this.directory_path}\\{file_name}"), textBox1.Text + file_name);
-            else
-                this.client.UploadFile(File.OpenRead($"{this.directory_path}\\{file_name}"), textBox1.Text + "/" + file_name);
 
-            MessageBox.Show("File uploaded to server!");
+            if (textBox1.Text.EndsWith("/"))
+            {
+                Stream fs = File.OpenRead($"{this.directory_path}\\{file_name}");
+                this.client.UploadFile(fs, textBox1.Text + file_name);
+                fs.Close();
+            }
+            else
+            {
+                Stream fs = File.OpenRead($"{this.directory_path}\\{file_name}");
+                this.client.UploadFile(fs, textBox1.Text + "/" + file_name);
+                fs.Close();
+            }
+
+            MessageBox.Show("File uploaded to server!", "Upload");
+            this.client.Disconnect();
         }
 
         private void panel1_MouseDown(object sender, MouseEventArgs e)
@@ -129,106 +123,85 @@ namespace Auto_SSH_Upload
 
         }
 
-        private void C_HighlightSyntax()
+        private void button1_Click(object sender, EventArgs e)
         {
-            // Define keyword, comment, and string patterns
-            string[] keywords = { "int", "float", "if", "else", "for", "while", "return" };
-            string commentPattern = @"//.*";
-            string stringPattern = @"""[^""\r\n]*""";
+            folderBrowserDialog1.ShowDialog();
+            directory_path = folderBrowserDialog1.SelectedPath;
+            label4.Text = $"Current Directory: {directory_path}";
 
-            // Clear previous formatting
-            richTextBox1.SelectAll();
-            richTextBox1.SelectionColor = Color.FromArgb(224, 224, 224);
+            string[] directories = Directory.GetDirectories(directory_path);
+            string[] files = Directory.GetFiles(directory_path);
+            if (files.Length == 0)
+                return;
 
-            // Highlight comments
-            C_HighlightPattern(commentPattern, Color.FromArgb(108, 148, 168));
+            dataGridView1.Rows.Clear();
+            dataGridView1.Rows.Add("...", " ");
+            foreach (string directory in directories)
+                dataGridView1.Rows.Add(directory.Replace($"{directory_path}\\", ""), "Dir");
 
-            // Highlight strings
-            C_HighlightPattern(stringPattern, Color.Red);
+            foreach (string file in files)
+                dataGridView1.Rows.Add(file.Replace($"{directory_path}\\", ""), "File");
+        }
 
-            // Highlight keywords
-            foreach (string keyword in keywords)
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            string file_name = Convert.ToString(dataGridView1.Rows[dataGridView1.SelectedCells[0].RowIndex].Cells["filename"].Value);
+            string file_type = Convert.ToString(dataGridView1.Rows[dataGridView1.SelectedCells[0].RowIndex].Cells["filetype"].Value);
+            if(file_type == "Dir")
             {
-                C_HighlightKeyword(keyword, Color.FromArgb(25, 88, 120));
-            }
-        }
+                this.directory_path += "\\" + file_name;
+                label4.Text = $"Current Directory: {directory_path}";
 
-        private void C_HighlightPattern(string pattern, Color color)
-        {
-            Regex regex = new Regex(pattern);
-            foreach (Match match in regex.Matches(richTextBox1.Text))
+                string[] directories = Directory.GetDirectories(directory_path);
+                string[] files = Directory.GetFiles(directory_path);
+                if (files.Length == 0)
+                    return;
+
+                dataGridView1.Rows.Clear();
+                dataGridView1.Rows.Add("...", " ");
+                foreach (string directory in directories)
+                    dataGridView1.Rows.Add(directory.Replace($"{directory_path}\\", ""), "Dir");
+
+                foreach (string file in files)
+                    dataGridView1.Rows.Add(file.Replace($"{directory_path}\\", ""), "File");
+
+                return;
+            } else if(file_name == "...")
             {
-                richTextBox1.Select(match.Index, match.Length);
-                richTextBox1.SelectionColor = color;
+                string[] dir_args = this.directory_path.Split('\\');
+                this.directory_path = this.directory_path.Replace($"\\{dir_args[dir_args.Length - 1]}", "");
+                label4.Text = $"Current Directory: {directory_path}";
+
+                string[] directories = Directory.GetDirectories(directory_path);
+                string[] files = Directory.GetFiles(directory_path);
+                if (files.Length == 0)
+                    return;
+
+                dataGridView1.Rows.Clear();
+                dataGridView1.Rows.Add("...", " ");
+                foreach (string directory in directories)
+                    dataGridView1.Rows.Add(directory.Replace($"{directory_path}\\", ""), "Dir");
+
+                foreach (string file in files)
+                    dataGridView1.Rows.Add(file.Replace($"{directory_path}\\", ""), "File");
+
+                return;
             }
+
+            richTextBox1.Text = File.ReadAllText(directory_path + "\\" + file_name);
         }
 
-        private void C_HighlightKeyword(string keyword, Color color)
+        private void richTextBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            int startIndex = 0;
-            while (startIndex < richTextBox1.TextLength)
-            {
-                int index = richTextBox1.Text.IndexOf(keyword, startIndex);
-                if (index == -1) break;
-                richTextBox1.Select(index, keyword.Length);
-                richTextBox1.SelectionColor = color;
-                startIndex = index + keyword.Length;
-            }
+
+            this.key = e.KeyChar;
         }
 
-        private void HighlightSyntax()
+        private void richTextBox1_KeyDown(object sender, KeyEventArgs e)
         {
-            // Clear previous formatting
-            richTextBox1.SelectAll();
-            richTextBox1.SelectionColor = Color.Black;
-
-            // Highlight comments
-            HighlightPattern(CommentPattern, Color.Green);
-
-            // Highlight strings
-            HighlightPattern(StringPattern, Color.Red);
-
-            // Highlight keywords
-            foreach (string keyword in pythonKeywords)
-            {
-                HighlightKeyword(keyword, Color.Blue);
-            }
+            if(e.KeyCode == Keys.Tab)
+                richTextBox1.Text += "\t";
         }
-
-        private void HighlightPattern(string pattern, Color color)
-        {
-            Regex regex = new Regex(pattern);
-            foreach (Match match in regex.Matches(richTextBox1.Text))
-            {
-                richTextBox1.Select(match.Index, match.Length);
-                richTextBox1.SelectionColor = color;
-            }
-        }
-
-        private void HighlightKeyword(string keyword, Color color)
-        {
-            int startIndex = 0;
-            while (startIndex < richTextBox1.TextLength)
-            {
-                int index = richTextBox1.Text.IndexOf(keyword, startIndex);
-                if (index == -1) break;
-                // Check if the keyword is a whole word
-                if (IsWholeWord(index, keyword.Length))
-                {
-                    richTextBox1.Select(index, keyword.Length);
-                    richTextBox1.SelectionColor = color;
-                }
-                startIndex = index + keyword.Length;
-            }
-        }
-
-        private bool IsWholeWord(int startIndex, int length)
-        {
-            int endIndex = startIndex + length;
-            if (startIndex > 0 && Char.IsLetterOrDigit(richTextBox1.Text[startIndex - 1])) return false;
-            if (endIndex < richTextBox1.TextLength && Char.IsLetterOrDigit(richTextBox1.Text[endIndex])) return false;
-            return true;
-        }
-
     }
 }

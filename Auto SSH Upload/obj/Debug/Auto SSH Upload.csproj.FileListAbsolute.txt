@@ -12,3 +12,17 @@ C:\Users\traci\source\repos\Auto SSH Upload\Auto SSH Upload\bin\Debug\Renci.SshN
 C:\Users\traci\source\repos\Auto SSH Upload\Auto SSH Upload\bin\Debug\Renci.SshNet.xml
 C:\Users\traci\source\repos\Auto SSH Upload\Auto SSH Upload\obj\Debug\Auto_SSH_Upload.SSHLogin.resources
 C:\Users\traci\source\repos\Auto SSH Upload\Auto SSH Upload\obj\Debug\Auto SSH.3F9C820F.Up2Date
+C:\Users\bango\OneDrive\Desktop\Auto-SSH-Upload\Auto SSH Upload\bin\Debug\Auto SSH Upload.exe.config
+C:\Users\bango\OneDrive\Desktop\Auto-SSH-Upload\Auto SSH Upload\bin\Debug\Auto SSH Upload.exe
+C:\Users\bango\OneDrive\Desktop\Auto-SSH-Upload\Auto SSH Upload\bin\Debug\Auto SSH Upload.pdb
+C:\Users\bango\OneDrive\Desktop\Auto-SSH-Upload\Auto SSH Upload\bin\Debug\Renci.SshNet.dll
+C:\Users\bango\OneDrive\Desktop\Auto-SSH-Upload\Auto SSH Upload\bin\Debug\Renci.SshNet.xml
+C:\Users\bango\OneDrive\Desktop\Auto-SSH-Upload\Auto SSH Upload\obj\Debug\Auto SSH Upload.csproj.AssemblyReference.cache
+C:\Users\bango\OneDrive\Desktop\Auto-SSH-Upload\Auto SSH Upload\obj\Debug\Auto_SSH_Upload.Form1.resources
+C:\Users\bango\OneDrive\Desktop\Auto-SSH-Upload\Auto SSH Upload\obj\Debug\Auto_SSH_Upload.Properties.Resources.resources
+C:\Users\bango\OneDrive\Desktop\Auto-SSH-Upload\Auto SSH Upload\obj\Debug\Auto_SSH_Upload.SSHLogin.resources
+C:\Users\bango\OneDrive\Desktop\Auto-SSH-Upload\Auto SSH Upload\obj\Debug\Auto SSH Upload.csproj.GenerateResource.cache
+C:\Users\bango\OneDrive\Desktop\Auto-SSH-Upload\Auto SSH Upload\obj\Debug\Auto SSH Upload.csproj.CoreCompileInputs.cache
+C:\Users\bango\OneDrive\Desktop\Auto-SSH-Upload\Auto SSH Upload\obj\Debug\Auto SSH.3F9C820F.Up2Date
+C:\Users\bango\OneDrive\Desktop\Auto-SSH-Upload\Auto SSH Upload\obj\Debug\Auto SSH Upload.exe
+C:\Users\bango\OneDrive\Desktop\Auto-SSH-Upload\Auto SSH Upload\obj\Debug\Auto SSH Upload.pdb
