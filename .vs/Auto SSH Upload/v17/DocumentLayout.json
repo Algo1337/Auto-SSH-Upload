@@ -11,11 +11,11 @@
       "RelativeMoniker": "D:0:0:{BF0B25ED-2763-4DDC-A26D-4FBA857CC7F8}|Auto SSH Upload\\Auto SSH Upload.csproj|solutionrelative:auto ssh upload\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|Auto SSH Upload||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{BF0B25ED-2763-4DDC-A26D-4FBA857CC7F8}|Auto SSH Upload\\Auto SSH Upload.csproj|C:\\Users\\bango\\OneDrive\\Desktop\\Auto-SSH-Upload\\auto ssh upload\\sshlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{BF0B25ED-2763-4DDC-A26D-4FBA857CC7F8}|Auto SSH Upload\\Auto SSH Upload.csproj|solutionrelative:auto ssh upload\\sshlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|Auto SSH Upload||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BF0B25ED-2763-4DDC-A26D-4FBA857CC7F8}|Auto SSH Upload\\Auto SSH Upload.csproj|C:\\Users\\bango\\OneDrive\\Desktop\\Auto-SSH-Upload\\auto ssh upload\\sshlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -56,18 +56,20 @@
               "RelativeToolTip": "Auto SSH Upload\\SSHLogin.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAADoAAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-28T10:50:04.79Z"
+              "WhenOpened": "2024-07-28T10:50:04.79Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "SSHLogin.cs [Design]",
               "DocumentMoniker": "C:\\Users\\bango\\OneDrive\\Desktop\\Auto-SSH-Upload\\Auto SSH Upload\\SSHLogin.cs",
               "RelativeDocumentMoniker": "Auto SSH Upload\\SSHLogin.cs",
               "ToolTip": "C:\\Users\\bango\\OneDrive\\Desktop\\Auto-SSH-Upload\\Auto SSH Upload\\SSHLogin.cs [Design]",
               "RelativeToolTip": "Auto SSH Upload\\SSHLogin.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-28T10:38:01.471Z"
+              "WhenOpened": "2024-07-28T10:38:01.471Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
@@ -75,15 +77,15 @@
               "Title": "Form1.cs [Design]",
               "DocumentMoniker": "C:\\Users\\bango\\OneDrive\\Desktop\\Auto-SSH-Upload\\Auto SSH Upload\\Form1.cs",
               "RelativeDocumentMoniker": "Auto SSH Upload\\Form1.cs",
-              "ToolTip": "C:\\Users\\bango\\OneDrive\\Desktop\\Auto-SSH-Upload\\Auto SSH Upload\\Form1.cs [Design]",
-              "RelativeToolTip": "Auto SSH Upload\\Form1.cs [Design]",
+              "ToolTip": "C:\\Users\\bango\\OneDrive\\Desktop\\Auto-SSH-Upload\\Auto SSH Upload\\Form1.cs [Design]*",
+              "RelativeToolTip": "Auto SSH Upload\\Form1.cs [Design]*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-28T10:12:40.349Z",
               "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Auto SSH Upload",
               "DocumentMoniker": "C:\\Users\\bango\\OneDrive\\Desktop\\Auto-SSH-Upload\\Auto SSH Upload\\Auto SSH Upload.csproj",
               "RelativeDocumentMoniker": "Auto SSH Upload\\Auto SSH Upload.csproj",
@@ -99,9 +101,9 @@
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\bango\\OneDrive\\Desktop\\Auto-SSH-Upload\\Auto SSH Upload\\Form1.cs",
               "RelativeDocumentMoniker": "Auto SSH Upload\\Form1.cs",
-              "ToolTip": "C:\\Users\\bango\\OneDrive\\Desktop\\Auto-SSH-Upload\\Auto SSH Upload\\Form1.cs",
-              "RelativeToolTip": "Auto SSH Upload\\Form1.cs",
-              "ViewState": "AQIAABQAAAAAAAAAAAAQwBQAAAA0AAAA",
+              "ToolTip": "C:\\Users\\bango\\OneDrive\\Desktop\\Auto-SSH-Upload\\Auto SSH Upload\\Form1.cs*",
+              "RelativeToolTip": "Auto SSH Upload\\Form1.cs*",
+              "ViewState": "AQIAAPkAAAAAAAAAAAAQwBwBAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-28T10:15:01.643Z",
               "EditorCaption": ""

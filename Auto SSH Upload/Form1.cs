@@ -13,6 +13,7 @@ using Renci.SshNet;
 using Renci.SshNet.Common;
 using System.Threading;
 using System.Text.RegularExpressions;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Auto_SSH_Upload
 {
@@ -20,6 +21,10 @@ namespace Auto_SSH_Upload
     {
         public string directory_path = string.Empty;
         public string[] files = new string[] { };
+
+        public string server_directory_path = string.Empty;
+        public string[] server_files = new string[] { };
+
         public SftpClient client;
         public string ip;
         public int port;
@@ -68,12 +73,45 @@ namespace Auto_SSH_Upload
 
             label6.Text = $"SSH Status: {this.ip}";
 
+            folderBrowserDialog1.ShowDialog();
+            directory_path = folderBrowserDialog1.SelectedPath;
+            label4.Text = $"Current Directory: {directory_path}";
+
+            string[] directories = Directory.GetDirectories(directory_path);
+            string[] files = Directory.GetFiles(directory_path);
+            if (files.Length == 0)
+                return;
+
+            dataGridView1.Rows.Clear();
+            dataGridView1.Rows.Add("...", " ");
+            foreach (string directory in directories)
+                dataGridView1.Rows.Add(directory.Replace($"{directory_path}\\", ""), "Dir");
+
+            foreach (string file in files)
+                dataGridView1.Rows.Add(file.Replace($"{directory_path}\\", ""), "File");
+
+            this.client.Connect();
+            List<string> server_directories = this.client.ListDirectory("/").Where(f => f.IsDirectory).Select(f => f.Name).ToList();
+            List<string> server_files = this.client.ListDirectory("/").Where(f => !f.IsDirectory).Select(f => f.Name).ToList();
+            this.server_directory_path = "/";
+
+            dataGridView2.Rows.Clear();
+            dataGridView2.Rows.Add("...", " ");
+            foreach (string n in server_directories)
+                dataGridView2.Rows.Add(n, "Dir");
+
+            foreach (string n in server_files)
+                dataGridView2.Rows.Add(n, "File");
+
+            this.client.Disconnect();
         }
 
         private void richTextBox1_DoubleClick(object sender, EventArgs e)
         {
+
+            // brb
             this.client.Connect();
-            if (textBox1.Text == "Server_Path_To_File" || textBox1.Text.Trim() == "")
+            if (this.server_directory_path == "Server_Path_To_File" || this.server_directory_path.Trim() == "")
                 return;
 
             string file_name = Convert.ToString(dataGridView1.Rows[dataGridView1.SelectedCells[0].RowIndex].Cells["Filename"].Value);
@@ -81,16 +119,16 @@ namespace Auto_SSH_Upload
             File.WriteAllText($"{this.directory_path}\\{file_name}", richTextBox1.Text);
             Thread.Sleep(1000);
 
-            if (textBox1.Text.EndsWith("/"))
+            if (this.server_directory_path.EndsWith("/"))
             {
                 Stream fs = File.OpenRead($"{this.directory_path}\\{file_name}");
-                this.client.UploadFile(fs, textBox1.Text + file_name);
+                this.client.UploadFile(fs, this.server_directory_path + file_name);
                 fs.Close();
             }
             else
             {
                 Stream fs = File.OpenRead($"{this.directory_path}\\{file_name}");
-                this.client.UploadFile(fs, textBox1.Text + "/" + file_name);
+                this.client.UploadFile(fs, this.server_directory_path + "/" + file_name);
                 fs.Close();
             }
 
@@ -123,29 +161,8 @@ namespace Auto_SSH_Upload
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            folderBrowserDialog1.ShowDialog();
-            directory_path = folderBrowserDialog1.SelectedPath;
-            label4.Text = $"Current Directory: {directory_path}";
-
-            string[] directories = Directory.GetDirectories(directory_path);
-            string[] files = Directory.GetFiles(directory_path);
-            if (files.Length == 0)
-                return;
-
-            dataGridView1.Rows.Clear();
-            dataGridView1.Rows.Add("...", " ");
-            foreach (string directory in directories)
-                dataGridView1.Rows.Add(directory.Replace($"{directory_path}\\", ""), "Dir");
-
-            foreach (string file in files)
-                dataGridView1.Rows.Add(file.Replace($"{directory_path}\\", ""), "File");
-        }
-
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
             string file_name = Convert.ToString(dataGridView1.Rows[dataGridView1.SelectedCells[0].RowIndex].Cells["filename"].Value);
             string file_type = Convert.ToString(dataGridView1.Rows[dataGridView1.SelectedCells[0].RowIndex].Cells["filetype"].Value);
             if(file_type == "Dir")
@@ -202,6 +219,72 @@ namespace Auto_SSH_Upload
         {
             if(e.KeyCode == Keys.Tab)
                 richTextBox1.Text += "\t";
+        }
+
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string file_name = Convert.ToString(dataGridView2.Rows[dataGridView2.SelectedCells[0].RowIndex].Cells["server_filename"].Value);
+            string file_type = Convert.ToString(dataGridView2.Rows[dataGridView2.SelectedCells[0].RowIndex].Cells["server_filetype"].Value);
+            if (file_type == "Dir")
+            {
+                this.server_directory_path += "/" + file_name;
+                MessageBox.Show(this.server_directory_path);
+
+                dataGridView2.Rows.Clear();
+                dataGridView2.Rows.Add("...", " ");
+
+                this.client.Connect();
+
+                List<string> server_directories = this.client.ListDirectory(this.server_directory_path).Where(f => f.IsDirectory).Select(f => f.Name).ToList();
+                List<string> server_files = this.client.ListDirectory(this.server_directory_path).Where(f => !f.IsDirectory).Select(f => f.Name).ToList();
+                if (server_files.Count == 0)
+                    return;
+
+                dataGridView2.Rows.Clear();
+                dataGridView2.Rows.Add("...", " ");
+                foreach (string n in server_directories)
+                    dataGridView2.Rows.Add(n, "Dir");
+
+                foreach (string n in server_files)
+                    dataGridView2.Rows.Add(n, "File");
+
+                this.client.Disconnect();
+
+                return;
+            }
+            else if (file_name == "...")
+            {
+                string[] dir_args = this.server_directory_path.Split('/');
+                this.server_directory_path = this.server_directory_path.Replace($"/{dir_args[dir_args.Length - 1]}", "");
+
+                dataGridView2.Rows.Clear();
+                dataGridView2.Rows.Add("...", " ");
+
+                this.client.Connect();
+
+                List<string> server_directories = this.client.ListDirectory(this.server_directory_path).Where(f => f.IsDirectory).Select(f => f.Name).ToList();
+                List<string> server_files = this.client.ListDirectory(this.server_directory_path).Where(f => !f.IsDirectory).Select(f => f.Name).ToList();
+                if (server_files.Count == 0)
+                    return;
+
+                dataGridView2.Rows.Clear();
+                dataGridView2.Rows.Add("...", " ");
+                foreach (string n in server_directories)
+                    dataGridView2.Rows.Add(n, "Dir");
+
+                foreach (string n in server_files)
+                    dataGridView2.Rows.Add(n, "File");
+
+                return;
+            }
+
+            this.client.Connect();
+            using (FileStream fs = File.Create(this.directory_path + "\\" + file_name))
+                this.client.DownloadFile(this.server_directory_path + "/" + file_name, fs);
+
+            this.client.Disconnect();
+
+            richTextBox1.Text = File.ReadAllText(this.directory_path + "\\" + file_name);
         }
     }
 }
