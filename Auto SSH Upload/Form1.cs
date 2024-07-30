@@ -238,7 +238,6 @@ namespace Auto_SSH_Upload
             if (file_type == "Dir")
             {
                 this.server_directory_path += "/" + file_name;
-                MessageBox.Show(this.server_directory_path);
 
                 dataGridView2.Rows.Clear();
                 dataGridView2.Rows.Add("...", " ");
@@ -284,6 +283,8 @@ namespace Auto_SSH_Upload
 
                 foreach (string n in server_files)
                     dataGridView2.Rows.Add(n, "File");
+
+                this.client.Disconnect();
 
                 return;
             }
