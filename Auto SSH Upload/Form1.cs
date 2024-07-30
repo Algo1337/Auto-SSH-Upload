@@ -93,7 +93,7 @@ namespace Auto_SSH_Upload
             this.client.Connect();
             List<string> server_directories = this.client.ListDirectory("/").Where(f => f.IsDirectory).Select(f => f.Name).ToList();
             List<string> server_files = this.client.ListDirectory("/").Where(f => !f.IsDirectory).Select(f => f.Name).ToList();
-            this.server_directory_path = "/";
+            this.server_directory_path = "";
 
             dataGridView2.Rows.Clear();
             dataGridView2.Rows.Add("...", " ");
@@ -108,13 +108,20 @@ namespace Auto_SSH_Upload
 
         private void richTextBox1_DoubleClick(object sender, EventArgs e)
         {
-
-            // brb
             this.client.Connect();
             if (this.server_directory_path == "Server_Path_To_File" || this.server_directory_path.Trim() == "")
                 return;
 
             string file_name = Convert.ToString(dataGridView1.Rows[dataGridView1.SelectedCells[0].RowIndex].Cells["Filename"].Value);
+
+            /*
+             * Check if the file already exist before saving to upload to the server
+             * If file don't already exists, it will save to the current directory and delete 
+             * ( user might not be in the right directory with the file since file was pulled from the server )
+             */
+            bool delete = false;
+            if (!File.Exists($"{this.directory_path}\\{file_name}"))
+                delete = true;
 
             File.WriteAllText($"{this.directory_path}\\{file_name}", richTextBox1.Text);
             Thread.Sleep(1000);
@@ -131,6 +138,9 @@ namespace Auto_SSH_Upload
                 this.client.UploadFile(fs, this.server_directory_path + "/" + file_name);
                 fs.Close();
             }
+
+            if (delete)
+                File.Delete($"{this.directory_path}\\{file_name}");
 
             MessageBox.Show("File uploaded to server!", "Upload");
             this.client.Disconnect();
